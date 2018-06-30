@@ -146,13 +146,11 @@ public class ClienteMB implements Serializable {
         }
         
         ArrayList emails = new ArrayList();
-        emails.add("walkiriariussbfm@gmail.com");
-        emails.add("walkiriarius1@gmail.com");
-        emails.add("walkiriarius@sarabrasilfm.com");
         
-        EnviarEmail.tratarEnvio(emails, "Notificação de usuário - vaporness", getCliente().getMensagem(), getCliente().getNome(), getCliente().getEmail());
+        EnviarEmail.tratarEnvio(emails, "Notificação de usuário - Vapor Barato", getCliente().getMensagem(), 
+        		getCliente().getNome(), getCliente().getEmail(), getCliente().getTelefone());
         
-        Util.montarMensagemModal(FacesMessage.SEVERITY_INFO, "Notificação enviada com sucesso", "Relaxe, em breve lhe daremos uma resposta!");        
+        Util.montarMensagem(FacesMessage.SEVERITY_INFO, "Relaxe, em breve lhe daremos uma resposta!");        
     }
     
     /**

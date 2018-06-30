@@ -18,12 +18,22 @@ public class Cliente extends DomainObject {
 	private String email;
 	
 	private String senha;
+	
+	private String telefone;
 	    
 	@Transient
 	private String confirmaSenha;
 	
 	@Transient
 	private String mensagem;
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
 	public String getMensagem() {
 		return mensagem;

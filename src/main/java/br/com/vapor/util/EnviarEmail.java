@@ -28,15 +28,18 @@ public class EnviarEmail {
         HtmlEmail email = new HtmlEmail();
         
         try {
+        	email.setCharset("UTF-8");
             email.setHostName(Constantes.HOST_NAME_GMAIL);
             email.addTo(Constantes.ADMINISTRADOR_1);
-            email.setFrom(Constantes.EMAIL_REMETENTE_GMAIL, "vaporness - Administrador");
+            email.setFrom(Constantes.EMAIL_REMETENTE_GMAIL, "Vapor Barato - Administrador");
             
             for (String tmp : emails) {
                 email.addBcc(tmp);
             }
             
-            String tmp = "<br /><br /><b>Nome: "+dadosRemetente[0]+"<br />Email: "+dadosRemetente[1]+"</b><br /><br />";
+            String tmp = "<br /><br /><b>Nome: "+dadosRemetente[0]+"<br />"
+            		+ "Email: "+dadosRemetente[1]+"<br />"
+            		+ "Telefone: "+dadosRemetente[2]+"</b><br /><br />";
             tmp += "<b>Conteúdo digitado pelo usuário: </b><br /><br />";
             email.setSubject(assunto);
             
