@@ -37,8 +37,8 @@ public class EnviarEmail {
                 email.addBcc(tmp);
             }
             
-            String tmp = "<br /><br /><b>Nome: "+dadosRemetente[0]+"<br />"
-            		+ "Email: "+dadosRemetente[1]+"<br />"
+            String tmp = "<br /><b>Nome: "+dadosRemetente[0]+"<br />"
+            		+ "E-mail: "+dadosRemetente[1]+"<br />"
             		+ "Telefone: "+dadosRemetente[2]+"</b><br /><br />";
             tmp += "<b>Conteúdo digitado pelo usuário: </b><br /><br />";
             email.setSubject(assunto);

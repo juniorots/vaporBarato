@@ -150,15 +150,30 @@ public class ClienteMB implements Serializable {
         EnviarEmail.tratarEnvio(emails, "Notificação de usuário - Vapor Barato", getCliente().getMensagem(), 
         		getCliente().getNome(), getCliente().getEmail(), getCliente().getTelefone());
         
+        // Limpando objeto
+        limparObjeto(getCliente());
+        
         Util.montarMensagem(FacesMessage.SEVERITY_INFO, "Relaxe, em breve lhe daremos uma resposta!");        
     }
     
+    /**
+     * Util para limpeza de objeto utilizado no envio de e-mail
+     * @param cliente
+     */
+    public void limparObjeto(Cliente cliente) {
+    	cliente.setNome("");
+    	cliente.setEmail("");
+    	cliente.setTelefone("");
+    	cliente.setMensagem("");
+    }
+        
     /**
      * Verifica a necessidade de preenchimento dos campos
      * @return
      */
     public boolean bloquearEnvioNotificacao(Cliente cliente) {
-    	return Util.isEmpty(cliente.getEmail()) || Util.isEmpty(cliente.getNome()) || Util.isEmpty(cliente.getMensagem()); 
+    	return Util.isEmpty(cliente.getEmail()) || Util.isEmpty(cliente.getNome()) 
+    			|| Util.isEmpty(cliente.getTelefone()) || Util.isEmpty(cliente.getMensagem()); 
     }
     
     /*
