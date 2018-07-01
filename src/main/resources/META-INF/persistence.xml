@@ -10,8 +10,8 @@
     
 	<!-- NOTA: Bloco de comentario que devera ser utilizado junto com a secao 
 	do jUnit para o devido acesso a base.
-	-->
     <jta-data-source>java:/jdbc/vaporBarato</jta-data-source>
+	-->
 	<class>br.com.vapor.modelo.Cliente</class>
 	<class>br.com.vapor.modelo.Produto</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>  

@@ -1,5 +1,7 @@
 package br.com.vapor.negocio;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,9 +15,10 @@ import org.junit.Test;
 import br.com.vapor.base.ProdutoDAO;
 import br.com.vapor.modelo.EnumTipoProduto;
 import br.com.vapor.modelo.Produto;
+import br.com.vapor.util.Util;
 import lombok.Cleanup;
 
-public class ProdutoDAOTest {
+public class ProdutoDAOTest implements Serializable {
 	
 	@BeforeClass
     public static void setUpClass() {
@@ -33,11 +36,56 @@ public class ProdutoDAOTest {
     public void tearDown() {
     }
 
-  @Test
-  public void example() {
-  }
+    /**
+     * Util na verificacao de produto ja existente na base de dados
+     * @return
+     */
+    public Produto contidoBase(Produto produto) {
+    	@Cleanup
+    	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("databaseDefault");
+        final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+                
+        ProdutoDAO dao = new ProdutoDAO(entityManager);
+        if (!Util.isEmpty(dao.findByStringField("srcImagem", produto.getSrcImagem(), true, 0, 1))) {
+        	return dao.findByStringField("srcImagem", produto.getSrcImagem(), true, 0, 1).get(0);
+        } else 
+        	return null;
+    }
     
-//  @Test
+    /**
+     * Atualizando produto
+     */
+    public void atualizarProduto(Produto produto) {
+		@Cleanup
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("databaseDefault");
+        
+		@Cleanup
+		final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        
+        ProdutoDAO dao = new ProdutoDAO(entityManager);
+        dao.update(produto);
+        entityManager.getTransaction().commit();
+	}
+    
+    /**
+     * Inserindo produto na base
+     */
+    public void inserirProduto(Produto produto) {
+		@Cleanup
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("databaseDefault");
+        
+		@Cleanup
+		final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        
+        ProdutoDAO dao = new ProdutoDAO(entityManager);
+        dao.insert(produto);
+        entityManager.getTransaction().commit();
+	}
+    
+  @Test
   public void mainTest() {
 	  
 	  @Cleanup
@@ -46,18 +94,31 @@ public class ProdutoDAOTest {
       @Cleanup
       final EntityManager entityManager = entityManagerFactory.createEntityManager();
       entityManager.getTransaction().begin();
-//
-      Produto prod = new Produto();    
+
       ProdutoDAO dao = new ProdutoDAO(entityManager);
-//      
-//      prod.setSrcImagem("tmp/img-286x215-1.jpg");
-//      prod.setSrcImagemModal("tmp/img-640x480-1.jpg");
-//      prod.setTitulo("Produto 01");
-//      prod.setDescritivo("Descritivo 01");
-//      prod.setTipo(EnumTipoProduto.PRODUTO_DESTAQUE.getTipo());
-//      dao.insert(prod);      
-////      
-//      entityManager.getTransaction().commit();
+      
+      Produto prod;
+      Produto tmp;
+      for (int i = 1; i <= 12; i++) {
+    	  prod = new Produto();
+    	  if (i == 9) {
+    		  prod.setSrcImagem("img/portfolio/"+i+".gif");
+    	  } else {
+    		  prod.setSrcImagem("img/portfolio/"+i+".jpg");
+    	  }
+	      prod.setTitulo("Texto Titulo "+i);
+	      prod.setTipo(EnumTipoProduto.PRODUTO_DESTAQUE.getTipo());
+	      
+	      tmp = contidoBase(prod);
+	      if (Util.isEmpty(tmp)) {
+	    	  inserirProduto(prod);
+	      } else {
+	    	  prod.setId(tmp.getId());
+	    	  atualizarProduto(prod);
+	      }
+      }
+      
+      entityManager.getTransaction().commit();
   }
   
 }

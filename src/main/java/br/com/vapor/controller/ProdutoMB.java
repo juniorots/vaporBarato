@@ -25,7 +25,7 @@ public class ProdutoMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Produto produto = null;
-	private Collection<Produto> listaDestaque = new ArrayList();
+	private Collection<Produto> listaProduto = new ArrayList();
 	private Collection<Produto> listaLancamento = new ArrayList();
 
 	public ProdutoMB() {
@@ -42,12 +42,7 @@ public class ProdutoMB implements Serializable {
         ProdutoDAO dao = new ProdutoDAO(entityManager);
         
         for (Produto p : dao.selectAll()) {
-        	if (p.getTipo().equals(EnumTipoProduto.PRODUTO_DESTAQUE.getTipo())) { 
-        		this.listaDestaque.add( p );
-        	}
-        	if (p.getTipo().equals(EnumTipoProduto.PRODUTO_LANCAMENTO.getTipo())) { 
-        		this.listaLancamento.add( p );
-        	}
+    		this.listaProduto.add( p );
         }
 	}
 
@@ -59,12 +54,12 @@ public class ProdutoMB implements Serializable {
 		this.produto = produto;
 	}
 
-	public Collection<Produto> getListaDestaque() {
-		return listaDestaque;
+	public Collection<Produto> getListaProduto() {
+		return listaProduto;
 	}
 
-	public void setListaDestaque(Collection<Produto> listaDestaque) {
-		this.listaDestaque = listaDestaque;
+	public void setListaProduto(Collection<Produto> listaProduto) {
+		this.listaProduto = listaProduto;
 	}
 
 	public Collection<Produto> getListaLancamento() {
