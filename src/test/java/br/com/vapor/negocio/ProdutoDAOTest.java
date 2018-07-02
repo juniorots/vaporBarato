@@ -106,8 +106,15 @@ public class ProdutoDAOTest implements Serializable {
     	  } else {
     		  prod.setSrcImagem("img/portfolio/"+i+".jpg");
     	  }
+    	  prod.setIdModal("portfolioModal"+i);
 	      prod.setTitulo("Texto Titulo "+i);
+	      prod.setSubTitulo("SubTitulo Descritivo "+i);
 	      prod.setTipo(EnumTipoProduto.PRODUTO_DESTAQUE.getTipo());
+	      prod.setContemVideo(true);
+	      prod.setUrlVideo("https://player.vimeo.com/video/64254212");
+	      prod.setDescritivo("We have created a new theme that will help designers, "
+	      		+ "developers and companies create simple and beautiful business "
+	      		+ "or personal website quickly and easily.");
 	      
 	      tmp = contidoBase(prod);
 	      if (Util.isEmpty(tmp)) {

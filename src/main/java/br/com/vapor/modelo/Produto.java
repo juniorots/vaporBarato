@@ -18,6 +18,12 @@ public class Produto extends DomainObject {
 	@NotNull
 	private String titulo;
 	
+	private String subTitulo;
+	
+	private String urlVideo;
+	
+	private Boolean contemVideo;
+	
 	private String descritivo;
 	
 	@NotNull
@@ -25,6 +31,40 @@ public class Produto extends DomainObject {
 	
 	private Double preco;
 	
+	private String idModal;
+	
+	public String getSubTitulo() {
+		return subTitulo;
+	}
+
+	public void setSubTitulo(String subTitulo) {
+		this.subTitulo = subTitulo;
+	}
+
+	public String getUrlVideo() {
+		return urlVideo;
+	}
+
+	public void setUrlVideo(String urlVideo) {
+		this.urlVideo = urlVideo;
+	}
+
+	public Boolean getContemVideo() {
+		return contemVideo;
+	}
+
+	public void setContemVideo(Boolean contemVideo) {
+		this.contemVideo = contemVideo;
+	}
+
+	public String getIdModal() {
+		return idModal;
+	}
+
+	public void setIdModal(String idModal) {
+		this.idModal = idModal;
+	}
+
 	public String getSrcImagemModal() {
 		return srcImagemModal;
 	}
